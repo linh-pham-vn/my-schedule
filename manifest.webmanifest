@@ -1,0 +1,14 @@
+{
+  "name": "My schedule",
+  "short_name": "Schedule",
+  "description": "A hand-drawn 24-hour dial on Winnipeg time that shows the activity you are in right now.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF1DB",
+  "theme_color": "#FBF1DB",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

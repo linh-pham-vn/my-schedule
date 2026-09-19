@@ -1,0 +1,1620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A hand-drawn 24-hour dial on Winnipeg time that shows the activity you are in right now.">
+<meta name="theme-color" content="#FBF1DB" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131A40" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="My schedule">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+:root{
+  color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>My schedule</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --paper:#F8F1EA;
+  --paper-2:#F1E7DD;
+  --surface:#FCF7F2;
+  --ink:#221F1C;
+  --ink-soft:#57514A;
+  --muted:#9A9088;
+  --line:#DFD4C8;
+  --hair:#E7DDD2;
+  --hub:#FCF7F2;
+  --dial-ground:#FBF5EF;
+  --dial-label:#221F1C;
+  --tick:#B9AC9E;
+  --stem:#7C9E4A;
+  --c1:#E2604A; --c2:#E0A22B; --c3:#7C9E4A; --c4:#6A4E9C; --c5:#DE87A4; --c6:#5E9AA8; --c7:#E8C948; --c8:#8E4E6E;
+  --sun-petal:#E3A62A; --sf-disc:#7F5629; --sf-disc-ink:#FDF6EA;
+  --sketchtile:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340' viewBox='0 0 340 340'%3E%3Cg fill='none' stroke='%23221F1C' stroke-width='1' stroke-linecap='round' opacity='0.075'%3E%3Cpath d='M56 128C53 106 53 84 57 60M55 112C45 108 38 100 34 89C44 90 52 99 55 112M56 94C66 90 73 82 77 71C67 72 59 81 56 94M57 76C49 72 44 65 41 56C49 58 55 65 57 76'/%3E%3Cpath d='M268 116C265 98 264 84 266 68M266 74l-9-10M266 74l10-9M266 86l-11-9M266 86l11-9M266 98l-9-8M266 98l10-8'/%3E%3Cpath d='M142 262C139 248 136 238 130 228M143 262C143 248 144 237 146 226M144 262C148 250 153 241 160 233'/%3E%3Cpath d='M290 288C288 274 287 264 289 252M289 256c-8-4-13-9-16-16M289 256c8-4 13-9 16-16M289 268c-7-3-11-7-14-13'/%3E%3Cpath d='M182 92c-8 4-13 11-14 20c9-1 16-8 18-17M186 96c8 4 13 11 14 20c-9-1-16-8-18-17'/%3E%3Cpath d='M66 236c-6 3-10 8-11 15c7-1 12-6 13-13'/%3E%3C/g%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --paper:#18161A; --paper-2:#211E24; --surface:#211E24; --ink:#F2EAE1; --ink-soft:#CFC5BA;
+    --muted:#8E8479; --line:#38333B; --hair:#2E2A32; --hub:#1E1B21; --dial-ground:#1C1A20;
+    --dial-label:#F2EAE1; --tick:#6A6058; --stem:#9BBE66;
+    --c1:#F0836C; --c2:#EFC05B; --c3:#9BBE66; --c4:#A88BDC; --c5:#EDA4BC; --c6:#82BECB; --c7:#F0DC7C; --c8:#C486A0;
+    --sun-petal:#EFC05B; --sf-disc:#8C6234; --sf-disc-ink:#FDF6EA;
+    --sketchtile:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340' viewBox='0 0 340 340'%3E%3Cg fill='none' stroke='%23F2EAE1' stroke-width='1' stroke-linecap='round' opacity='0.065'%3E%3Cpath d='M56 128C53 106 53 84 57 60M55 112C45 108 38 100 34 89C44 90 52 99 55 112M56 94C66 90 73 82 77 71C67 72 59 81 56 94M57 76C49 72 44 65 41 56C49 58 55 65 57 76'/%3E%3Cpath d='M268 116C265 98 264 84 266 68M266 74l-9-10M266 74l10-9M266 86l-11-9M266 86l11-9M266 98l-9-8M266 98l10-8'/%3E%3Cpath d='M142 262C139 248 136 238 130 228M143 262C143 248 144 237 146 226M144 262C148 250 153 241 160 233'/%3E%3Cpath d='M290 288C288 274 287 264 289 252M289 256c-8-4-13-9-16-16M289 256c8-4 13-9 16-16M289 268c-7-3-11-7-14-13'/%3E%3Cpath d='M182 92c-8 4-13 11-14 20c9-1 16-8 18-17M186 96c8 4 13 11 14 20c-9-1-16-8-18-17'/%3E%3Cpath d='M66 236c-6 3-10 8-11 15c7-1 12-6 13-13'/%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --paper:#18161A; --paper-2:#211E24; --surface:#211E24; --ink:#F2EAE1; --ink-soft:#CFC5BA;
+  --muted:#8E8479; --line:#38333B; --hair:#2E2A32; --hub:#1E1B21; --dial-ground:#1C1A20;
+  --dial-label:#F2EAE1; --tick:#6A6058; --stem:#9BBE66;
+  --c1:#F0836C; --c2:#EFC05B; --c3:#9BBE66; --c4:#A88BDC; --c5:#EDA4BC; --c6:#82BECB; --c7:#F0DC7C; --c8:#C486A0;
+  --sun-petal:#EFC05B; --sf-disc:#8C6234; --sf-disc-ink:#FDF6EA;
+  --sketchtile:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340' viewBox='0 0 340 340'%3E%3Cg fill='none' stroke='%23F2EAE1' stroke-width='1' stroke-linecap='round' opacity='0.065'%3E%3Cpath d='M56 128C53 106 53 84 57 60M55 112C45 108 38 100 34 89C44 90 52 99 55 112M56 94C66 90 73 82 77 71C67 72 59 81 56 94M57 76C49 72 44 65 41 56C49 58 55 65 57 76'/%3E%3Cpath d='M268 116C265 98 264 84 266 68M266 74l-9-10M266 74l10-9M266 86l-11-9M266 86l11-9M266 98l-9-8M266 98l10-8'/%3E%3Cpath d='M142 262C139 248 136 238 130 228M143 262C143 248 144 237 146 226M144 262C148 250 153 241 160 233'/%3E%3Cpath d='M290 288C288 274 287 264 289 252M289 256c-8-4-13-9-16-16M289 256c8-4 13-9 16-16M289 268c-7-3-11-7-14-13'/%3E%3Cpath d='M182 92c-8 4-13 11-14 20c9-1 16-8 18-17M186 96c8 4 13 11 14 20c-9-1-16-8-18-17'/%3E%3Cpath d='M66 236c-6 3-10 8-11 15c7-1 12-6 13-13'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0; color:var(--ink); background-color:var(--paper);
+  font-family:"EB Garamond",Georgia,serif;
+  font-size:15px; line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+/* faint pencil botany, the way a sketchbook page shows through */
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:var(--sketchtile); background-repeat:repeat;
+}
+.wrap{
+  position:relative; z-index:2; max-width:760px; margin:0 auto;
+  padding-inline:22px; padding-block:46px 90px;
+  display:flex; flex-direction:column; gap:54px;
+}
+
+/* ---------- masthead ---------- */
+.masthead{text-align:center; position:relative}
+h1{
+  margin:0; font-family:"Cormorant Garamond",Georgia,serif; font-weight:400;
+  font-size:clamp(15px,2.5vw,19px); line-height:1.4; letter-spacing:.44em;
+  text-indent:.44em; text-transform:lowercase; color:var(--ink);
+}
+.tagline{
+  margin:9px 0 0; font-style:italic; font-weight:400;
+  font-size:clamp(11px,1.8vw,12.5px); letter-spacing:.05em; color:var(--ink-soft);
+}
+.stamp{
+  margin:16px 0 0; font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:10.5px; letter-spacing:.32em; text-indent:.32em; text-transform:lowercase; color:var(--muted);
+}
+.stamp b{font-weight:500; color:var(--ink-soft)}
+.bloom{position:absolute; pointer-events:none; z-index:-1}
+.bloom.l{left:-6px; top:-26px; width:88px}
+.bloom.r{right:-2px; top:-14px; width:76px}
+
+/* ---------- dial ---------- */
+.dialwrap{display:flex; justify-content:center}
+.dialwrap svg{width:100%; max-width:560px; height:auto; overflow:visible}
+
+/* ---------- now ---------- */
+.nowblock{text-align:center; display:flex; flex-direction:column; align-items:center; gap:0}
+.eyebrow{
+  font-family:"Cormorant Garamond",Georgia,serif; font-size:9.5px; font-weight:500;
+  letter-spacing:.36em; text-indent:.36em; text-transform:lowercase; color:var(--muted);
+}
+.now-name{
+  margin:14px 0 0; font-family:"Cormorant Garamond",Georgia,serif; font-weight:300;
+  font-size:clamp(28px,6vw,40px); line-height:1.1; letter-spacing:.015em; color:var(--ink);
+  text-wrap:balance;
+}
+.now-meta{margin:10px 0 0; font-size:13.5px; font-style:italic; color:var(--ink-soft); letter-spacing:.015em}
+.now-meta b{font-style:normal; font-weight:500; color:var(--ink)}
+.bar{margin-top:20px; width:min(260px,72%); height:1px; background:var(--line); position:relative}
+.bar i{position:absolute; inset:0 auto 0 0; display:block; width:0%; background:var(--now-color,var(--ink)); transition:width .9s linear}
+.bar::after{
+  content:""; position:absolute; top:-2px; left:var(--pos,0%); width:5px; height:5px;
+  border-radius:50%; background:var(--now-color,var(--ink)); transform:translateX(-50%); transition:left .9s linear;
+}
+@media (prefers-reduced-motion:reduce){ .bar i,.bar::after{transition:none} }
+.next-line{margin:22px 0 0; font-size:12.5px; color:var(--muted); letter-spacing:.02em}
+.next-line b{font-weight:500; font-style:italic; color:var(--ink-soft)}
+
+/* ---------- controls ---------- */
+.actions{display:flex; justify-content:center; flex-wrap:wrap; gap:26px; margin-top:30px}
+button{font:inherit; cursor:pointer; color:inherit}
+button:focus-visible{outline:1px solid var(--ink); outline-offset:5px}
+.btn{
+  background:none; border:none; border-bottom:1px solid var(--line); padding:3px 1px 5px;
+  font-family:"Cormorant Garamond",Georgia,serif; font-size:10.5px; font-weight:500;
+  letter-spacing:.3em; text-indent:.3em; text-transform:lowercase; color:var(--ink-soft);
+  transition:border-color .2s ease, color .2s ease;
+}
+.btn:hover{border-color:var(--ink); color:var(--ink)}
+.btn[disabled]{opacity:.45; cursor:default}
+
+/* the flower breathes, the hand's tip glows, the seconds tick round */
+.sf-breeze{transform-box:fill-box; transform-origin:center}
+/* pivots on the hub end, so it is the arrowhead that does the quivering.
+   asked for by name, so unlike the ambient sway it runs even under reduced motion */
+.hand-wiggle{
+  transform-box:fill-box; transform-origin:50% 100%;
+  animation:wiggle 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: no-preference){
+  .sf-breeze{animation:sway 7.5s ease-in-out infinite}
+}
+@keyframes sway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+/* just a slow drift now — the squiggle is in the shape, not the shaking */
+@keyframes wiggle{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
+
+.speedline{
+  display:flex; justify-content:center; align-items:baseline; gap:13px; flex-wrap:wrap;
+  margin:18px 0 0; font-size:11px; color:var(--muted);
+}
+.speedline[hidden]{display:none}
+.speedline button{
+  background:none; border:none; border-bottom:1px solid transparent; padding:2px 1px 3px;
+  font-family:"Cormorant Garamond",Georgia,serif; font-size:13px; font-weight:500;
+  letter-spacing:.14em; text-transform:lowercase; color:var(--muted);
+}
+.speedline button:hover{color:var(--ink-soft)}
+.speedline button.on{color:var(--ink); border-bottom-color:var(--ink)}
+.speedline .per{font-style:italic; font-size:11.5px}
+
+/* ---------- editor ---------- */
+.sechead{text-align:center; margin-bottom:26px}
+section h2{
+  margin:0; font-family:"Cormorant Garamond",Georgia,serif; font-weight:500;
+  font-size:11px; letter-spacing:.36em; text-indent:.36em; text-transform:lowercase; color:var(--ink);
+}
+.sub{margin:9px auto 0; max-width:50ch; font-size:12.5px; font-style:italic; color:var(--muted); line-height:1.6}
+.rows{display:flex; flex-direction:column}
+.row{
+  display:grid; grid-template-columns:14px minmax(0,1fr) auto;
+  grid-template-areas:"sw name del" ". time time";
+  gap:4px 14px; align-items:center;
+  padding:13px 2px; border-bottom:1px solid var(--hair);
+}
+.rows .row:first-child{border-top:1px solid var(--hair)}
+.sw{
+  grid-area:sw; align-self:center; width:11px; height:11px; padding:0; border:none;
+  border-radius:50%; background:var(--rc,var(--c1)); opacity:.85;
+}
+.sw:hover{transform:scale(1.35); opacity:1}
+.namewrap{grid-area:name; display:flex; align-items:center; gap:9px; min-width:0}
+.timewrap{grid-area:time; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.del{
+  grid-area:del; width:22px; height:22px; display:grid; place-items:center;
+  background:none; border:none; color:var(--line); font-size:13px; line-height:1;
+}
+.del:hover{color:var(--c1)}
+input{
+  font:inherit; color:var(--ink); background:transparent;
+  border:none; border-bottom:1px solid transparent; padding:2px 0;
+}
+input:focus{outline:none; border-bottom-color:var(--ink)}
+.i-name{
+  flex:1; min-width:0; font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:21px; font-weight:600; letter-spacing:.012em;
+}
+.i-name::placeholder{color:var(--line); font-style:italic}
+.i-time{
+  font-family:"Cormorant Garamond",Georgia,serif; font-size:13px; font-weight:500;
+  letter-spacing:.11em; color:var(--ink-soft); width:auto;
+}
+.dash{color:var(--line); font-size:11px}
+.dur{margin-left:auto; font-size:11px; font-style:italic; color:var(--muted); white-space:nowrap; letter-spacing:.02em}
+.addbtn{
+  margin:26px auto 0; display:block; background:none; border:none; border-bottom:1px solid var(--line);
+  padding:3px 1px 5px; font-family:"Cormorant Garamond",Georgia,serif; font-size:10.5px; font-weight:500;
+  letter-spacing:.3em; text-indent:.3em; text-transform:lowercase; color:var(--muted);
+}
+.addbtn:hover{border-color:var(--ink); color:var(--ink)}
+
+/* ---------- howto ---------- */
+.howto ol{
+  margin:0 auto; padding-left:0; list-style:none; max-width:56ch;
+  display:flex; flex-direction:column; gap:16px; color:var(--ink-soft); font-size:13.5px; line-height:1.75;
+}
+.howto li{position:relative; padding-left:26px}
+.howto li::before{
+  content:counter(step); counter-increment:step; position:absolute; left:0; top:.12em;
+  font-family:"Cormorant Garamond",Georgia,serif; font-size:11px; letter-spacing:.1em; color:var(--muted);
+}
+.howto ol{counter-reset:step}
+.howto b{font-weight:500; color:var(--ink); font-style:italic}
+
+/* ---------- wallpaper: a print, committed to the light paper ---------- */
+.wallpaper[hidden]{display:none}
+.wallpaper{
+  position:fixed; inset:0; z-index:60; overflow:auto;
+  background-color:#F8F1EA; color:#221F1C;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0;
+  padding:calc(24px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px));
+  text-align:center;
+  --dial-ground:#FBF5EF; --hub:#FCF7F2; --dial-label:#221F1C; --tick:#B9AC9E; --line:#DFD4C8;
+  --ink:#221F1C; --ink-soft:#57514A; --muted:#9A9088; --stem:#7C9E4A;
+  --c1:#E2604A; --c2:#E0A22B; --c3:#7C9E4A; --c4:#6A4E9C; --c5:#DE87A4; --c6:#5E9AA8; --c7:#E8C948; --c8:#8E4E6E;
+  --sun-petal:#E3A62A; --sf-disc:#7F5629; --sf-disc-ink:#FDF6EA;
+}
+.wp-mark{
+  font-family:"Cormorant Garamond",Georgia,serif; font-size:12px; font-weight:400;
+  letter-spacing:.44em; text-indent:.44em; text-transform:lowercase; color:#57514A;
+}
+.wp-dial{width:min(94vw,440px); margin-top:18px}
+.wp-dial svg{width:100%; height:auto; overflow:visible}
+.wp-name{
+  margin:14px 0 0; font-family:"Cormorant Garamond",Georgia,serif; font-weight:300;
+  font-size:clamp(26px,7.2vw,36px); line-height:1.15; letter-spacing:.015em;
+}
+.wp-meta{margin:8px 0 0; font-size:13px; font-style:italic; color:#57514A}
+.wp-next{margin:16px 0 0; font-size:12px; color:#9A9088; letter-spacing:.02em}
+.wp-tag{margin:14px 0 0; font-size:12px; font-style:italic; color:#9A9088}
+.wp-close{
+  position:fixed; top:calc(14px + env(safe-area-inset-top,0px)); right:16px;
+  width:30px; height:30px; background:none; border:none; color:#9A9088; font-size:14px;
+}
+
+.tzbtn{
+  background:none; border:none; padding:0 0 2px; cursor:pointer;
+  border-bottom:1px solid var(--line);
+  font-family:"Cormorant Garamond",Georgia,serif; font-size:10.5px; font-weight:500;
+  letter-spacing:.32em; text-indent:.32em; text-transform:lowercase; color:var(--ink-soft);
+  transition:border-color .2s ease, color .2s ease;
+}
+.tzbtn:hover{border-color:var(--ink); color:var(--ink)}
+.tzbackdrop{position:fixed; inset:0; z-index:70; background:rgba(34,31,28,.2)}
+.tzbackdrop[hidden]{display:none}
+.tzpanel{
+  position:fixed; z-index:71; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(430px,calc(100vw - 30px)); max-height:min(72vh,580px);
+  display:flex; flex-direction:column;
+  background:var(--surface); border:1px solid var(--line);
+  box-shadow:0 26px 60px -34px rgba(34,31,28,.55); padding:22px 0 10px;
+}
+.tzpanel[hidden]{display:none}
+.tzhead{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 22px 12px}
+.tzclose{background:none; border:none; color:var(--muted); font-size:13px; line-height:1}
+.tzclose:hover{color:var(--ink)}
+.tzfilter{
+  margin:0 22px 8px; border:none; border-bottom:1px solid var(--line); padding:6px 0;
+  font-family:"Cormorant Garamond",Georgia,serif; font-size:19px; background:transparent;
+}
+.tzfilter::placeholder{color:var(--line); font-style:italic}
+.tzlist{overflow-y:auto; padding:4px 12px 6px; -webkit-overflow-scrolling:touch}
+.tzrow{
+  display:flex; width:100%; align-items:baseline; justify-content:space-between; gap:14px;
+  background:none; border:none; padding:9px 10px; text-align:left;
+}
+.tzrow:hover,.tzrow.is-on{background:var(--paper-2)}
+.tzname{font-family:"Cormorant Garamond",Georgia,serif; font-size:19px; color:var(--ink)}
+.tzname em{
+  font-style:normal; font-size:9.5px; letter-spacing:.2em; color:var(--muted);
+  margin-left:10px; text-transform:lowercase;
+}
+.tztime{
+  font-family:"Cormorant Garamond",Georgia,serif; font-size:14px; letter-spacing:.09em;
+  color:var(--muted); white-space:nowrap;
+}
+.tzrow.is-on .tztime{color:var(--ink)}
+.tzempty{padding:14px 22px 20px; font-size:13px; font-style:italic; color:var(--muted)}
+
+#toast{
+  position:fixed; left:50%; transform:translateX(-50%); bottom:calc(26px + env(safe-area-inset-bottom,0px));
+  z-index:80; background:var(--surface); color:var(--ink); border:1px solid var(--line);
+  padding:11px 20px; font-size:12.5px; font-style:italic;
+  display:flex; align-items:center; gap:18px;
+}
+#toast button{
+  background:none; border:none; border-bottom:1px solid var(--line); padding:0 0 2px;
+  font-family:"Cormorant Garamond",Georgia,serif; font-size:10px; font-style:normal;
+  letter-spacing:.28em; text-indent:.28em; text-transform:lowercase; color:var(--ink-soft);
+}
+
+#setup[hidden]{display:none}
+.setuptoggle{display:none}
+@media (max-width:700px){
+  .setuptoggle{display:block}
+  .wrap{gap:36px; padding-block:30px 60px; padding-inline:20px}
+  h1{letter-spacing:.34em; text-indent:.34em}
+  .bloom{display:none}
+  .actions{gap:22px; margin-top:26px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <svg class="bloom l" viewBox="0 0 90 90" aria-hidden="true"></svg>
+    <svg class="bloom r" viewBox="0 0 80 80" aria-hidden="true"></svg>
+    <h1>my schedule</h1>
+    <p class="tagline">stretch myself to see how excellent I can be</p>
+    <p class="stamp"><b id="chipTime">--:--:--</b> <button class="tzbtn" id="tzBtn" aria-haspopup="dialog"><span id="chipZone">winnipeg</span></button></p>
+  </header>
+
+  <section class="stage">
+    <div class="dialwrap"><svg id="dial" viewBox="0 0 620 620" role="img" aria-label="24-hour schedule dial"></svg></div>
+    <div class="nowblock">
+      <div class="eyebrow">right now</div>
+      <h2 class="now-name" id="nowName">&nbsp;</h2>
+      <p class="now-meta" id="nowMeta">&nbsp;</p>
+      <div class="bar"><i id="nowBar"></i></div>
+      <p class="next-line" id="nextLine">&nbsp;</p>
+    </div>
+    <div class="actions">
+      <button class="btn" id="wpBtn">wallpaper</button>
+      <button class="btn" id="saveBtn" hidden>save as image</button>
+      <button class="btn" id="playBtn">watch the day</button>
+      <button class="btn setuptoggle" id="setupToggle">edit blocks</button>
+    </div>
+    <p class="speedline" id="speedLine" hidden>
+      <span class="eyebrow">speed</span>
+      <button type="button" data-s="15">15 minutes</button>
+      <button type="button" data-s="60">an hour</button>
+      <button type="button" data-s="240">four hours</button>
+      <span class="per">every second</span>
+    </p>
+  </section>
+
+  <div id="setup">
+  <section>
+    <div class="sechead">
+      <h2>today's blocks</h2>
+      <p class="sub" id="editorSub">Starter blocks — change any time, name or colour and it saves on its own. Times wrap past midnight, so 23:00 → 06:00 works.</p>
+    </div>
+    <div class="rows" id="rows"></div>
+    <button class="addbtn" id="addBtn">add a block</button>
+  </section>
+
+  <section class="howto">
+    <div class="sechead"><h2>on your phone</h2></div>
+    <ol>
+      <li><b>A living clock.</b> Open this page in Safari or Chrome on your phone, then Share → Add to Home Screen. Tapping it opens the dial full-screen, keeping Winnipeg time.</li>
+      <li><b>Wallpaper</b> is the full-screen view, clock only. Leave it open on a propped-up phone, or screenshot it and set that image as your lock screen.</li>
+      <li><b>Save as image</b> exports a 1290 × 2796 print of this moment, laid out so the phone's own clock at the top covers nothing. A lock screen picture cannot tick by itself — the home-screen app is the one that stays alive.</li>
+    </ol>
+  </section>
+  </div>
+</div>
+
+<div class="tzbackdrop" id="tzBackdrop" hidden></div>
+<div class="tzpanel" id="tzPanel" hidden role="dialog" aria-modal="true" aria-label="Choose a time zone">
+  <div class="tzhead">
+    <span class="eyebrow">show the clock in</span>
+    <button class="tzclose" id="tzClose" aria-label="Close">✕</button>
+  </div>
+  <input class="tzfilter" id="tzFilter" type="search" placeholder="search a city…" aria-label="Search for a city" autocomplete="off">
+  <div class="tzlist" id="tzList"></div>
+</div>
+
+<div class="wallpaper" id="wallpaper" hidden>
+  <button class="wp-close" id="wpClose" aria-label="Leave wallpaper">✕</button>
+  <div class="wp-mark">my schedule</div>
+  <div class="wp-dial"><svg id="wpDial" viewBox="0 0 620 620" role="img" aria-label="24-hour schedule dial"></svg></div>
+  <h2 class="wp-name" id="wpName">&nbsp;</h2>
+  <p class="wp-meta" id="wpMeta">&nbsp;</p>
+  <p class="wp-next" id="wpNext">&nbsp;</p>
+  <p class="wp-tag">stretch myself to see how excellent I can be</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ===================== time ===================== */
+const HOME_TZ = "America/Winnipeg";
+const TZ_KEY = "my-schedule-tz-v1";
+
+function validTz(tz){
+  if(typeof tz !== "string" || !tz) return false;
+  try{ new Intl.DateTimeFormat("en-CA",{timeZone:tz}).format(new Date()); return true; }
+  catch(e){ return false; }
+}
+function deviceTz(){
+  try{ return Intl.DateTimeFormat().resolvedOptions().timeZone || HOME_TZ; }catch(e){ return HOME_TZ; }
+}
+/* a saved choice wins; otherwise the clock meets you where you are */
+let TZ = HOME_TZ;
+(function(){
+  let saved = null;
+  try{ saved = localStorage.getItem(TZ_KEY); }catch(e){}
+  if(validTz(saved)) TZ = saved;
+  else { const d = deviceTz(); if(validTz(d)) TZ = d; }
+})();
+
+let fClock, fDate, fZone;
+function buildFormatters(){
+  fClock = new Intl.DateTimeFormat("en-CA",{timeZone:TZ,hour12:false,hour:"2-digit",minute:"2-digit",second:"2-digit"});
+  fDate  = new Intl.DateTimeFormat("en-CA",{timeZone:TZ,weekday:"long",month:"long",day:"numeric"});
+  fZone  = new Intl.DateTimeFormat("en-CA",{timeZone:TZ,timeZoneName:"short"});
+}
+buildFormatters();
+
+function cityOf(tz){
+  const parts = String(tz).split("/");
+  return parts[parts.length-1].replace(/_/g," ").toLowerCase();
+}
+function regionOf(tz){
+  const parts = String(tz).split("/");
+  return parts.length>1 ? parts[0].replace(/_/g," ").toLowerCase() : "";
+}
+
+function pad(n){ return String(n).padStart(2,"0"); }
+function nowClock(){
+  const p={};
+  for(const part of fClock.formatToParts(new Date())) p[part.type]=part.value;
+  let h=+p.hour; if(h===24) h=0;
+  return {h:h, m:+p.minute, s:+p.second};
+}
+function zoneLabel(){
+  for(const part of fZone.formatToParts(new Date())) if(part.type==="timeZoneName") return part.value;
+  return "CDT";
+}
+function fmt12(mins){
+  const t=((Math.floor(mins)%1440)+1440)%1440;
+  const h=Math.floor(t/60), m=t%60;
+  return ((h%12)||12)+":"+pad(m)+" "+(h<12?"am":"pm");
+}
+function fmtDur(mins){
+  const t=Math.max(0,Math.round(mins));
+  if(t<1) return "under a minute";
+  if(t<60) return t+" minutes";
+  const h=Math.floor(t/60), m=t%60;
+  return m ? h+" h "+m+" min" : h+(h===1?" hour":" hours");
+}
+function toTimeValue(mins){ const t=((mins%1440)+1440)%1440; return pad(Math.floor(t/60))+":"+pad(t%60); }
+function fromTimeValue(v){
+  const m=/^(\d{1,2}):(\d{2})$/.exec(v||"");
+  return m ? (Math.min(23,+m[1])*60 + Math.min(59,+m[2]))%1440 : null;
+}
+
+/* ===================== data ===================== */
+const PALETTE = 8;
+const DEFAULT_BLOCKS = [
+  {id:"b1",  start:0,    end:360,  label:"Dreamland",      emoji:"🌙", c:4},
+  {id:"b2",  start:360,  end:390,  label:"Wake + stretch", emoji:"🌅", c:2},
+  {id:"b3",  start:390,  end:450,  label:"Move my body",   emoji:"🏃", c:3},
+  {id:"b4",  start:450,  end:495,  label:"Breakfast",      emoji:"🍳", c:2},
+  {id:"b5",  start:495,  end:720,  label:"Deep work",      emoji:"⚡", c:1},
+  {id:"b6",  start:720,  end:780,  label:"Lunch + walk",   emoji:"🥗", c:8},
+  {id:"b7",  start:780,  end:1020, label:"Client work",    emoji:"🛠", c:5},
+  {id:"b8",  start:1020, end:1080, label:"Reset + tidy",   emoji:"🧺", c:7},
+  {id:"b9",  start:1080, end:1140, label:"Dinner",         emoji:"🍲", c:1},
+  {id:"b10", start:1140, end:1230, label:"Learn + grow",   emoji:"🧠", c:6},
+  {id:"b11", start:1230, end:1320, label:"Free time",      emoji:"✨", c:2},
+  {id:"b12", start:1320, end:1380, label:"Reflect + plan", emoji:"📓", c:3},
+  {id:"b13", start:1380, end:0,    label:"Wind down",      emoji:"🌛", c:4}
+];
+const LS_KEY = "my-schedule-blocks-v1";
+
+function newId(){ return "b" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function sanitize(raw){
+  if(!Array.isArray(raw)) return null;
+  const out=[];
+  for(const b of raw){
+    if(!b || typeof b!=="object") continue;
+    const s=Number(b.start), e=Number(b.end);
+    if(!Number.isFinite(s)||!Number.isFinite(e)) continue;
+    out.push({
+      id: typeof b.id==="string" && b.id ? b.id.slice(0,32) : newId(),
+      start: ((Math.round(s)%1440)+1440)%1440,
+      end:   ((Math.round(e)%1440)+1440)%1440,
+      label: String(b.label==null?"":b.label).slice(0,48),
+      emoji: String(b.emoji==null?"":b.emoji).slice(0,4),
+      c: Math.min(PALETTE, Math.max(1, Math.round(Number(b.c))||1))
+    });
+    if(out.length>=60) break;
+  }
+  return out;
+}
+function durationOf(b){ const d=((b.end-b.start)%1440+1440)%1440; return d===0?1440:d; }
+function elapsedIn(b, mins){ return ((mins-b.start)%1440+1440)%1440; }
+function contains(b, mins){ return elapsedIn(b,mins) < durationOf(b); }
+
+let blocks = sanitize(DEFAULT_BLOCKS);
+try{
+  const s = sanitize(JSON.parse(localStorage.getItem(LS_KEY)||"null"));
+  if(s && s.length) blocks = s;
+}catch(e){}
+
+let lastLocalEdit = 0, readOnly = false;
+let db = null, saveTimer = null, writing = false, pendingWrite = false;
+
+function setReadOnly(msg){
+  if(readOnly) return;
+  readOnly = true;
+  const sub = document.getElementById("editorSub");
+  if(sub) sub.textContent = msg;
+  document.querySelectorAll("#rows input, #rows button").forEach(function(x){ x.disabled = true; });
+  const add = document.getElementById("addBtn");
+  if(add) add.hidden = true;
+}
+
+function persist(){
+  lastLocalEdit = Date.now();
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(blocks)); }catch(e){}
+  if(!db || readOnly) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(flush, 700);
+}
+async function flush(){
+  if(!db || readOnly) return;
+  if(writing){ pendingWrite = true; return; }
+  writing = true;
+  try{
+    await db.doc("schedule/main").set({blocks: blocks, updatedAt: new Date().toISOString()});
+  }catch(err){
+    if(err && (err.code==="invalid_argument" || err.code==="revoked")){
+      setReadOnly("These blocks belong to whoever shared this page. The clock is yours to set — the blocks stay as they are.");
+    }
+  }finally{
+    writing = false;
+    if(pendingWrite){ pendingWrite = false; flush(); }
+  }
+}
+
+/* ===================== geometry ===================== */
+const TAU = Math.PI*2;
+const R_HUB=100, R_IN=112, R_OUT=248, R_TK_IN=256, R_TK_OUT=266, R_RING=272, R_NUM=288, R_EDGE=302;
+const SVG_G = {cx:310, cy:310, k:1};
+const R_MID = (R_IN + R_OUT)/2;
+
+/* the hand is a squiggle: whole waves along the radius, so both ends land back
+   on the centre line — the tail leaves the hub straight, the head sits true */
+const HAND_R0 = R_HUB+6, HAND_R1 = R_OUT+1, HAND_WAVES = 3, HAND_AMP = 9.5;
+function wavyShaft(){                  /* points in a "pointing up" frame, dial units */
+  const out = [];
+  for(let i=0;i<=72;i++){
+    const t = i/72;
+    out.push([Math.sin(t*Math.PI*2*HAND_WAVES)*HAND_AMP, -(HAND_R0 + (HAND_R1-HAND_R0)*t)]);
+  }
+  return out;
+}
+const HEAD_PTS = [[0,-(R_OUT+22)],[-12,-(R_OUT+1)],[0,-(R_OUT-5)],[12,-(R_OUT+1)]];
+function handShaftD(){
+  return "M" + wavyShaft().map(function(q){ return (310+q[0]).toFixed(1)+" "+(310+q[1]).toFixed(1); }).join("L");
+}
+function handHeadD(){
+  return "M" + HEAD_PTS.map(function(q){ return (310+q[0]).toFixed(1)+" "+(310+q[1]).toFixed(1); }).join("L") + "Z";
+}
+function labelSize(dur){ return dur>=110 ? 15 : (dur>=70 ? 13.5 : 12); }
+function labelChars(fs){ return Math.floor((R_OUT-R_IN-18)/(fs*0.46)); }
+const AMP = 1.3;   /* a brush edge, not a crayon scribble */
+
+function jit(a,b){ const x=Math.sin(a*12.9898+b*78.233)*43758.5453; return (x-Math.floor(x))*2-1; }
+function warp(G, r, m, seed, amp){
+  const A = amp===undefined ? AMP : amp;
+  const rr = r + jit(m*0.41+seed*7.7, r*0.13+seed*3.1)*A;
+  const mm = m + jit(r*0.23+seed*5.3, m*0.31+seed*2.9)*A;
+  const a = (mm/1440)*TAU - Math.PI/2;
+  return [G.cx + rr*G.k*Math.cos(a), G.cy + rr*G.k*Math.sin(a)];
+}
+function arcPts(G, r, m1, m2, seed, amp){
+  const n = Math.max(2, Math.ceil(Math.abs(m2-m1)/11));
+  const out=[];
+  for(let i=0;i<=n;i++) out.push(warp(G, r, m1+(m2-m1)*i/n, seed, amp));
+  return out;
+}
+function radialPts(G, m, r1, r2, seed, amp){
+  const n = Math.max(2, Math.ceil(Math.abs(r2-r1)/20));
+  const out=[];
+  for(let i=0;i<=n;i++) out.push(warp(G, r1+(r2-r1)*i/n, m, seed, amp));
+  return out;
+}
+function seg(startMin, durMin){
+  const d = Math.min(durMin, 1439.6);
+  const out = [];
+  if(startMin + d <= 1440) out.push([startMin, startMin+d]);
+  else { out.push([startMin, 1440]); out.push([0, startMin+d-1440]); }
+  return out.filter(function(s){ return s[1]-s[0] > 0.05; });
+}
+function bandRings(G, start, dur, r1, r2, seed, amp){
+  return seg(start, dur).map(function(s){
+    return arcPts(G, r2, s[0], s[1], seed, amp)
+      .concat(radialPts(G, s[1], r2, r1, seed, amp))
+      .concat(arcPts(G, r1, s[1], s[0], seed, amp))
+      .concat(radialPts(G, s[0], r1, r2, seed, amp));
+  });
+}
+function ptsToPath(rings, close){
+  return rings.map(function(p){
+    return "M" + p.map(function(q){ return q[0].toFixed(1)+" "+q[1].toFixed(1); }).join("L") + (close?"Z":"");
+  }).join(" ");
+}
+function circlePath(G, r, seed, amp){ return ptsToPath([arcPts(G, r, 0, 1440, seed, amp)], true); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+/* ===================== botany ===================== */
+const BOT = {
+  /* a clover head on a thin stem */
+  clover: function(col){
+    let d="";
+    for(let i=0;i<9;i++){
+      const a=-Math.PI/2 + (i-4)*0.30;
+      d += "M0 -29L"+(9*Math.cos(a)).toFixed(1)+" "+(-29+9*Math.sin(a)).toFixed(1);
+    }
+    return '<path d="M0 0C-1.6 -10 -1.2 -20 0 -29" stroke="var(--stem)" stroke-width="1" fill="none"/>'+
+           '<path d="'+d+'" stroke="'+col+'" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".85"/>'+
+           '<path d="M-0.8 -11c-5 -1 -8.5 -4 -10 -7.5c4.5 0 8.5 2.5 10 7.5Z" fill="var(--stem)" fill-opacity=".5"/>'+
+           '<path d="M0.8 -17c5 -1 8.5 -4 10 -7.5c-4.5 0 -8.5 2.5 -10 7.5Z" fill="var(--stem)" fill-opacity=".5"/>';
+  },
+  /* three blades of grass */
+  grass: function(){
+    return '<g stroke="var(--stem)" stroke-width="1" fill="none" stroke-linecap="round" opacity=".7">'+
+           '<path d="M0 0C-2.5 -9 -6 -16 -11 -22"/><path d="M0 0C0 -10 0.5 -19 1.5 -27"/>'+
+           '<path d="M0 0C2.5 -8 6.5 -14 12 -19"/></g>';
+  },
+  /* a small daisy */
+  daisy: function(col){
+    let p="";
+    for(let i=0;i<7;i++){
+      p += '<ellipse cx="0" cy="-29.5" rx="2" ry="5.2" transform="rotate('+(i*51.4)+' 0 -24)" fill="var(--dial-ground)" stroke="'+col+'" stroke-width=".75" stroke-opacity=".8"/>';
+    }
+    return '<path d="M0 0C-1 -8 -1 -15 0 -21" stroke="var(--stem)" stroke-width="1" fill="none"/>'+p+
+           '<circle cx="0" cy="-24" r="2.3" fill="'+col+'" fill-opacity=".9"/>';
+  },
+  /* a tulip */
+  tulip: function(col){
+    return '<path d="M0 0C-1 -12 -1 -22 0 -31" stroke="var(--stem)" stroke-width="1.1" fill="none"/>'+
+           '<path d="M-6.5 -31C-6.5 -40 -3.5 -46 0 -48C3.5 -46 6.5 -40 6.5 -31C6.5 -26 -6.5 -26 -6.5 -31Z" fill="'+col+'" fill-opacity=".5" stroke="'+col+'" stroke-width=".85"/>'+
+           '<path d="M0 -38C-1 -44 -1.5 -46 0 -48C1.5 -46 1 -44 0 -38Z" fill="'+col+'" fill-opacity=".45"/>'+
+           '<path d="M-1 -14C-8 -16 -12.5 -22 -13.5 -29C-8 -27 -3 -21.5 -1 -14Z" fill="var(--stem)" fill-opacity=".42"/>'+
+           '<path d="M1 -20C8 -22 12.5 -28 13.5 -35C8 -33 3 -27.5 1 -20Z" fill="var(--stem)" fill-opacity=".42"/>';
+  },
+  /* a stem of little buds */
+  buds: function(col){
+    return '<path d="M0 0C-1 -10 -0.5 -20 1 -30" stroke="var(--stem)" stroke-width="1" fill="none"/>'+
+           '<circle cx="1.5" cy="-31" r="3.1" fill="'+col+'" fill-opacity=".62"/>'+
+           '<circle cx="-4.5" cy="-23" r="2.4" fill="'+col+'" fill-opacity=".5"/>'+
+           '<circle cx="5.5" cy="-17" r="2" fill="'+col+'" fill-opacity=".44"/>';
+  }
+};
+/* a sunflower that keeps the day's hours: a bud before dawn, wide at noon,
+   folding again by night, and leaning the way the sun has gone */
+function sunflowerSVG(cx, cy, seeds){
+  let petals = "";
+  for(let i=0;i<20;i++){
+    const a = i*18;
+    petals += '<g class="sf-p" data-a="'+a+'" transform="rotate('+a+')">'+
+      '<ellipse cx="0" cy="-23" rx="7" ry="23" fill="var(--sun-petal)" fill-opacity=".52"'+
+      ' stroke="var(--sun-petal)" stroke-width="1" stroke-opacity=".7"/></g>';
+  }
+  let sepals = "";
+  for(let i=0;i<5;i++){
+    sepals += '<path transform="rotate('+(i*72)+')" d="M0 -47C-8 -55 -11 -66 -8 -77C-1 -69 3 -57 0 -47Z"'+
+      ' fill="var(--stem)" fill-opacity=".6"/>';
+  }
+  /* the petals lean with the sun; the seed head does not, because it carries the words */
+  return '<g class="sunflower" transform="translate('+cx+' '+cy+')">'+
+    '<g class="sf-breeze"><g class="sf-tilt">'+
+      '<g class="sf-wash"><path d="M-2 -19C8 -22 19 -15 19 -5C19 6 12 16.5 1 19C-9.5 21.5 -19 13 -19 2C-19 -9 -12 -17 -2 -19Z"'+
+        ' fill="var(--sun-petal)" opacity=".2"/></g>'+
+      '<g class="sf-petals">'+petals+'</g>'+
+      '<g class="sf-sepals">'+sepals+'</g>'+
+    '</g></g>'+
+    '<circle class="sf-disc" cx="0" cy="0" r="50" fill="var(--sf-disc)" fill-opacity=".93"/>'+
+    '<circle class="sf-rim" cx="0" cy="0" r="44" fill="none" stroke="var(--sf-disc-ink)" stroke-width=".9" stroke-opacity=".2"/>'+
+    (seeds ? seedSpiral() : "")+
+    '</g>';
+}
+/* seeds packed on the golden angle, the way a real head grows */
+function seedSpiral(){
+  let d = "";
+  for(let i=0;i<190;i++){
+    const a = i*2.399963, r = 3.15*Math.sqrt(i);
+    if(r > 41) break;
+    d += '<circle cx="'+(r*Math.cos(a)).toFixed(1)+'" cy="'+(r*Math.sin(a)).toFixed(1)+'" r="1.5"/>';
+  }
+  return '<g fill="var(--sf-disc-ink)" opacity=".17">'+d+'</g>';
+}
+function smooth(x){ return x<=0 ? 0 : (x>=1 ? 1 : x*x*(3-2*x)); }
+/* a bud when a block begins, wide open as it runs out: 0 is closed, 1 is full */
+function targetBloom(st){
+  if(st.cur && st.total > 0) return 0.08 + 0.92*Math.min(1, st.elapsed/st.total);
+  return 0.1;                                  /* open time: nothing is growing */
+}
+/* the head still leans the way the sun has gone — that part is the hour, not the block */
+function bloomTilt(mins){ return -17 + 34*Math.min(1, Math.max(0,(mins-360)/720)); }
+let sunT = 0;
+function paintSunflower(svg, t, tilt){
+  if(!svg.querySelector(".sunflower")) return;
+  svg.querySelector(".sf-tilt").setAttribute("transform","rotate("+tilt.toFixed(2)+")");
+  const wash = svg.querySelector(".sf-wash");
+  wash.setAttribute("transform","scale("+(2.2+2.8*t).toFixed(3)+")");
+  wash.setAttribute("opacity",(0.5+0.5*t).toFixed(3));
+  const ps = svg.querySelectorAll(".sf-p");
+  for(let i=0;i<ps.length;i++){
+    const a = +ps[i].getAttribute("data-a");
+    const v = 0.86 + 0.28*((jit(a*0.7,3.3)+1)/2);   /* no two petals the same length */
+    const sy = (0.06 + 0.94*t) * v, sx = 0.45 + 0.55*t;
+    ps[i].setAttribute("transform","rotate("+(a+(1-t)*8).toFixed(2)+") translate(0 -48) scale("+sx.toFixed(3)+" "+sy.toFixed(3)+")");
+  }
+  svg.querySelector(".sf-sepals").setAttribute("opacity",(1-0.86*t).toFixed(3));
+  svg.querySelector(".sf-disc").setAttribute("fill-opacity",(0.86+0.07*t).toFixed(3));
+}
+
+function plant(kind, x, y, s, rot, col){
+  return '<g transform="translate('+x+' '+y+') rotate('+rot+') scale('+s+')">'+BOT[kind](col)+'</g>';
+}
+/* a loose watercolour pool: one wash, a deeper one pooling inside it */
+function wash(x, y, r, rot, col, op){
+  const k = r/20;
+  return '<g transform="translate('+x+' '+y+') rotate('+rot+') scale('+k.toFixed(3)+')" fill="'+col+'">'+
+         '<path d="M-2 -19C8 -22 19 -15 19 -5C19 6 12 16.5 1 19C-9.5 21.5 -19 13 -19 2C-19 -9 -12 -17 -2 -19Z" opacity="'+(op*0.62).toFixed(3)+'"/>'+
+         '<path d="M-1 -12C5 -14 12 -9 12 -2C12 5 7 11 -1 12C-8 13 -13 8 -13 1C-13 -6 -8 -10.5 -1 -12Z" opacity="'+(op*0.5).toFixed(3)+'"/>'+
+         '</g>';
+}
+
+/* ===================== dial ===================== */
+/* the corners of the square are empty paper — that is where the garden goes */
+function marginalia(){
+  return wash(70, 62, 27, 18, "var(--c1)", .5) +
+         wash(112, 104, 13, -30, "var(--c2)", .55) +
+         plant("tulip", 128, 96, 1.05, -9, "var(--c1)") +
+         plant("grass", 44, 128, 1, 8) +
+
+         wash(556, 70, 22, -22, "var(--c7)", .55) +
+         plant("clover", 520, 118, 1, 10, "var(--c2)") +
+         plant("buds", 578, 126, .9, -8, "var(--c5)") +
+
+         wash(60, 556, 24, 40, "var(--c5)", .45) +
+         plant("daisy", 100, 542, 1.05, -6, "var(--c7)") +
+         plant("grass", 44, 580, .9, -12) +
+
+         wash(566, 552, 26, -12, "var(--c4)", .38) +
+         plant("clover", 534, 586, .95, -14, "var(--c1)") +
+         plant("buds", 588, 548, .85, 12, "var(--c6)");
+}
+
+function buildDial(svg, still){
+  const G = SVG_G;
+  const sorted = blocks.slice().sort(function(a,b){ return a.start-b.start; });
+  let s = "";
+
+  s += '<path d="'+circlePath(G,R_EDGE,3,1.6)+'" fill="var(--dial-ground)" stroke="var(--line)" stroke-width="1" stroke-linejoin="round"/>';
+  s += marginalia();
+  s += '<path d="'+circlePath(G,R_RING,9,1.2)+'" fill="none" stroke="var(--line)" stroke-width=".8" opacity=".9"/>';
+
+  /* two washes per block, laid one over the other — where they overlap the colour pools */
+  s += '<g class="wedges">';
+  sorted.forEach(function(b){
+    const dur = durationOf(b);
+    s += '<path class="wedge-fill" d="'+ptsToPath(bandRings(G,b.start,dur,R_IN,R_OUT,1),true)+
+         '" fill="var(--c'+b.c+')" fill-opacity=".2" stroke="none"/>';
+    s += '<path class="wedge-fill" d="'+ptsToPath(bandRings(G,b.start,dur,R_IN+4,R_OUT-3,2,2.4),true)+
+         '" fill="var(--c'+b.c+')" fill-opacity=".17" stroke="none"/>';
+    s += '<path d="'+ptsToPath(bandRings(G,b.start,dur,R_IN,R_OUT,1),true)+
+         '" fill="none" stroke="var(--c'+b.c+')" stroke-width=".8" stroke-opacity=".62" stroke-linejoin="round"/>';
+  });
+  s += '</g>';
+  s += '<path class="progwedge" d="" fill="none" fill-opacity=".3" stroke="none"/>';
+  s += '<path class="curring" d="" fill="none" stroke="none" stroke-width="1.1" stroke-linejoin="round"/>';
+
+  s += '<g class="labels">';
+  sorted.forEach(function(b){
+    const dur = durationOf(b);
+    if(dur < 30 || !b.label) return;
+    const parts = seg(b.start, dur);
+    let best = parts[0];
+    parts.forEach(function(p){ if(p[1]-p[0] > best[1]-best[0]) best = p; });
+    const mid = (best[0]+best[1])/2;
+    const fs = labelSize(dur);
+    let txt = b.label.toLowerCase();
+    const maxChars = labelChars(fs);
+    if(txt.length > maxChars) txt = txt.slice(0, Math.max(1,maxChars-1)).trimEnd()+"…";
+    const ang = (mid/1440)*360, flip = ang > 180;
+    /* anchored at the middle of the band, never at an end, so a long name grows
+       both ways inside its own block instead of running off the dial */
+    const p = warp(G, R_MID, mid, 4, 1);
+    s += '<text x="'+p[0].toFixed(1)+'" y="'+p[1].toFixed(1)+'" transform="rotate('+((flip?ang+180:ang)-90).toFixed(2)+' '+p[0].toFixed(1)+' '+p[1].toFixed(1)+')"'+
+         ' text-anchor="middle" dominant-baseline="central" fill="var(--dial-label)" font-size="'+fs+'"'+
+         ' font-family="Cormorant Garamond, Georgia, serif" font-weight="600" letter-spacing=".4">'+esc(txt)+'</text>';
+  });
+  s += '</g>';
+
+  s += '<g stroke="var(--tick)" stroke-linecap="round" fill="none">';
+  for(let i=0;i<48;i++){
+    const major = i%2===0;
+    const d = ptsToPath([radialPts(SVG_G, i*30, major?R_TK_IN:R_TK_IN+4, R_TK_OUT, major?5:6, 1)], false);
+    s += '<path d="'+d+'" stroke-width="'+(major?1:.7)+'" opacity="'+(major?".8":".45")+'"/>';
+  }
+  s += '</g>';
+
+  /* 24 hours round, numbered 1 to 24: 24 at the top is midnight, 12 at the
+     bottom is noon, so every hour has one place and one name */
+  s += '<g fill="var(--ink-soft)" font-family="Cormorant Garamond, Georgia, serif" text-anchor="middle" dominant-baseline="central" letter-spacing=".3">';
+  for(let h=1;h<=24;h++){
+    const m=(h%24)*60, p=warp(SVG_G, R_NUM, m, 7, 1.2), major = h%6===0;
+    s += '<text x="'+p[0].toFixed(1)+'" y="'+p[1].toFixed(1)+'"'+
+         ' opacity="'+(major?"1":".78")+'" font-weight="'+(major?600:500)+'"'+
+         ' font-size="'+(major?18:15)+'">'+h+'</text>';
+  }
+  s += '</g>';
+
+  s += '<path class="dayprog" d="" fill="none" stroke="var(--ink)" stroke-width="1" stroke-linecap="round" opacity=".45"/>';
+
+  const shaftD = handShaftD(), headD = handHeadD();
+  if(!still) s += '<g class="hand"><g class="hand-wiggle">'+
+       '<path d="'+shaftD+'" stroke="var(--dial-ground)" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".85"/>'+
+       '<path d="'+headD+'" fill="var(--dial-ground)" stroke="var(--dial-ground)" stroke-width="6" stroke-linejoin="round" opacity=".85"/>'+
+       '<path d="'+shaftD+'" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".93"/>'+
+       '<path d="'+headD+'" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/>'+
+       '</g></g>';
+
+  s += '<path d="'+circlePath(G,R_HUB,11,1.1)+'" fill="var(--hub)" stroke="var(--line)" stroke-width="1" stroke-linejoin="round"/>';
+  s += '<g transform="translate(310 310)"><g class="secmark"><circle cx="0" cy="-106" r="2.6" fill="var(--ink)" opacity=".42"/></g></g>';
+  s += sunflowerSVG(310, 310, still);
+  if(!still){
+    s += '<text class="hub-label" x="310" y="'+(310-2)+'" text-anchor="middle" dominant-baseline="central" fill="var(--sf-disc-ink)"'+
+         ' font-family="Cormorant Garamond, Georgia, serif" font-weight="600" font-size="16" letter-spacing=".9"></text>';
+    s += '<text class="hub-sub" x="310" y="'+(310+25)+'" text-anchor="middle" dominant-baseline="central" fill="var(--sf-disc-ink)"'+
+         ' fill-opacity=".82" font-family="EB Garamond, Georgia, serif" font-style="italic" font-size="11.5"></text>';
+  }
+
+  svg.innerHTML = s;
+  svg.setAttribute("data-still", still ? "1" : "0");
+}
+
+function wrapWords(text, maxChars, maxLines){
+  const words = String(text||"").split(/\s+/).filter(Boolean);
+  const lines=[]; let line="";
+  for(const w of words){
+    const cand = line ? line+" "+w : w;
+    if(cand.length<=maxChars){ line=cand; }
+    else{ if(line) lines.push(line); line = w.length>maxChars ? w.slice(0,maxChars-1)+"…" : w; }
+    if(lines.length===maxLines) break;
+  }
+  if(line && lines.length<maxLines) lines.push(line);
+  return lines.length?lines:[""];
+}
+
+function paintDial(svg, st){
+  const mins = st.mins;
+  const hand = svg.querySelector(".hand");
+  if(hand) hand.setAttribute("transform","rotate("+((mins/1440)*360).toFixed(3)+" 310 310)");
+  svg.querySelector(".secmark").setAttribute("transform","rotate("+(((mins*60)%60)*6).toFixed(2)+")");
+  svg.querySelector(".dayprog").setAttribute("d", ptsToPath([arcPts(SVG_G, R_RING+7, 0.4, Math.max(1,mins), 13, 1.1)], false));
+
+  const pw = svg.querySelector(".progwedge"), cr = svg.querySelector(".curring");
+  if(st.cur){
+    pw.setAttribute("d", ptsToPath(bandRings(SVG_G, st.cur.start, Math.max(0.4,st.elapsed), R_IN, R_OUT, 1), true));
+    pw.setAttribute("fill","var(--c"+st.cur.c+")");
+    cr.setAttribute("d", ptsToPath(bandRings(SVG_G, st.cur.start, durationOf(st.cur), R_IN-4, R_OUT+4, 14, 1.4), true));
+    cr.setAttribute("stroke","var(--ink)");
+    cr.setAttribute("stroke-opacity",".4");
+  }else{
+    pw.setAttribute("d",""); cr.setAttribute("d",""); cr.setAttribute("stroke","none");
+  }
+
+  const still = svg.getAttribute("data-still") === "1";
+  paintSunflower(svg, still ? 1 : sunT, still ? 0 : bloomTilt(mins));
+
+  const lab = svg.querySelector(".hub-label");
+  if(lab){
+    const lines = wrapWords(st.name.toLowerCase(), 13, 2);
+    lab.setAttribute("y", lines.length>1 ? 310-10 : 310-2);
+    lab.innerHTML = lines.map(function(l,i){ return '<tspan x="310" dy="'+(i===0?0:18)+'">'+esc(l)+'</tspan>'; }).join("");
+    const sub = svg.querySelector(".hub-sub");
+    sub.setAttribute("y", lines.length>1 ? 310+31 : 310+25);
+    sub.textContent = st.hubSub;
+  }
+}
+
+/* ===================== state ===================== */
+function computeState(){
+  const c = nowClock();
+  let mins = c.h*60 + c.m + c.s/60;
+  if(preview) mins = (mins + preview.offset) % 1440;   /* watching the day run */
+  let cur=null, curRemaining=Infinity;
+  blocks.forEach(function(b){
+    if(!contains(b,mins)) return;
+    const rem = durationOf(b) - elapsedIn(b,mins);
+    if(rem < curRemaining){ curRemaining = rem; cur = b; }
+  });
+  let next=null, nextIn=Infinity;
+  blocks.forEach(function(b){
+    if(cur && b.id===cur.id) return;
+    const until = ((b.start-mins)%1440+1440)%1440;
+    if(until > 0.0001 && until < nextIn){ nextIn = until; next = b; }
+  });
+
+  const st = {
+    h: Math.floor(mins/60)%24, m: Math.floor(mins)%60, s: Math.floor((mins%1)*60),
+    mins: mins, cur: cur, next: next, nextIn: nextIn
+  };
+  if(cur){
+    st.elapsed = elapsedIn(cur, mins);
+    st.total = durationOf(cur);
+    st.remaining = st.total - st.elapsed;
+    st.name = cur.label || "Untitled block";
+    st.color = "var(--c"+cur.c+")";
+  }else{
+    st.elapsed = 0; st.total = 0;
+    st.remaining = next ? nextIn : 0;
+    st.name = "Open time"; st.color = "var(--ink)";
+  }
+  st.hubSub = cur ? fmtDur(st.remaining)+" left" : (next ? "free until "+fmt12(next.start) : "no blocks yet");
+  return st;
+}
+
+/* ===================== render ===================== */
+const el = {};
+["chipTime","chipZone","nowName","nowMeta","nowBar","nextLine",
+ "dial","wpDial","wallpaper","wpName","wpMeta","wpNext","rows","setup","setupToggle"].forEach(function(id){
+  el[id] = document.getElementById(id);
+});
+const barEl = document.querySelector(".bar");
+const nowBlock = document.querySelector(".nowblock");
+
+let wallpaperOpen = false;
+
+function tick(){
+  const st = computeState();
+
+  /* a new block folds the flower back to a bud, then it opens again as the block runs */
+  const blockId = st.cur ? st.cur.id : "";
+  const target = targetBloom(st);
+  if(lastBlockId === null) lastBlockId = blockId;
+  else if(blockId !== lastBlockId){ lastBlockId = blockId; animateSun(target, preview ? 260 : 1200); }
+  else if(!sunAnim) sunT = target;
+
+  el.chipTime.textContent = pad(st.h)+":"+pad(st.m)+":"+pad(st.s);
+  el.chipZone.textContent = preview ? "preview" : cityOf(TZ) + " " + zoneLabel().toLowerCase();
+
+  nowBlock.style.setProperty("--now-color", st.color);
+  el.nowName.textContent = st.name;
+  const pct = st.cur ? Math.min(100,(st.elapsed/st.total)*100) : 0;
+  el.nowBar.style.width = pct.toFixed(2)+"%";
+  barEl.style.setProperty("--pos", pct.toFixed(2)+"%");
+
+  if(st.cur){
+    el.nowMeta.innerHTML = "until <b>"+fmt12(st.cur.end)+"</b> — "+fmtDur(st.remaining)+" left of "+fmtDur(st.total);
+  }else if(st.next){
+    el.nowMeta.innerHTML = "yours to spend until <b>"+fmt12(st.next.start)+"</b>";
+  }else{
+    el.nowMeta.textContent = "nothing scheduled yet";
+  }
+
+  el.nextLine.innerHTML = st.next
+    ? "next — <b>"+esc(st.next.label||"untitled")+"</b> at "+fmt12(st.next.start)+", in "+fmtDur(st.nextIn)
+    : "nothing else planned today";
+
+  paintDial(el.dial, st);
+  if(wallpaperOpen){
+    paintDial(el.wpDial, st);
+    el.wpName.textContent = st.name;
+    el.wpMeta.textContent = st.cur ? "until "+fmt12(st.cur.end)+" — "+fmtDur(st.remaining)+" left"
+                                   : (st.next ? "free until "+fmt12(st.next.start) : fDate.format(new Date()));
+    el.wpNext.textContent = st.next ? "next — "+(st.next.label||"")+" at "+fmt12(st.next.start)
+                                    : fDate.format(new Date());
+  }
+}
+
+/* ===================== editor ===================== */
+function renderRows(){
+  const sorted = blocks.slice().sort(function(a,b){ return a.start-b.start; });
+  el.rows.innerHTML = "";
+  sorted.forEach(function(b){
+    const row = document.createElement("div");
+    row.className = "row";
+    row.style.setProperty("--rc","var(--c"+b.c+")");
+    row.innerHTML =
+      '<button class="sw" type="button" aria-label="Change colour"></button>'+
+      '<div class="namewrap">'+
+        '<input class="i-name" id="nm-'+esc(b.id)+'" value="'+esc(b.label)+'" maxlength="48" placeholder="what are you doing?" aria-label="Activity">'+
+      '</div>'+
+      '<div class="timewrap">'+
+        '<input class="i-time i-start" type="time" step="300" value="'+toTimeValue(b.start)+'" aria-label="Start time">'+
+        '<span class="dash">—</span>'+
+        '<input class="i-time i-end" type="time" step="300" value="'+toTimeValue(b.end)+'" aria-label="End time">'+
+        '<span class="dur">'+fmtDur(durationOf(b))+'</span>'+
+      '</div>'+
+      '<button class="del" type="button" aria-label="Remove block">✕</button>';
+
+    const find = function(){ return blocks.find(function(x){ return x.id===b.id; }); };
+
+    row.querySelector(".sw").addEventListener("click", function(){
+      const t=find(); if(!t) return;
+      t.c = (t.c % PALETTE) + 1;
+      row.style.setProperty("--rc","var(--c"+t.c+")");
+      persist(); buildAll();
+    });
+    row.querySelector(".i-name").addEventListener("input", function(e){
+      const t=find(); if(!t) return;
+      t.label = e.target.value; persist(); buildAll();
+    });
+    row.querySelector(".i-start").addEventListener("change", function(e){
+      const t=find(); if(!t) return;
+      const v=fromTimeValue(e.target.value);
+      if(v===null){ e.target.value = toTimeValue(t.start); return; }
+      t.start=v; persist(); renderRows(); buildAll();
+    });
+    row.querySelector(".i-end").addEventListener("change", function(e){
+      const t=find(); if(!t) return;
+      const v=fromTimeValue(e.target.value);
+      if(v===null){ e.target.value = toTimeValue(t.end); return; }
+      t.end=v; persist(); renderRows(); buildAll();
+    });
+    row.querySelector(".del").addEventListener("click", function(){
+      const i = blocks.findIndex(function(x){ return x.id===b.id; });
+      if(i<0) return;
+      const removed = blocks.splice(i,1)[0];
+      persist(); renderRows(); buildAll();
+      showToast("removed “"+(removed.label||"block")+"”", "undo", function(){
+        blocks.push(removed); persist(); renderRows(); buildAll();
+      });
+    });
+
+    if(readOnly) row.querySelectorAll("input,button").forEach(function(x){ x.disabled = true; });
+    el.rows.appendChild(row);
+  });
+}
+
+document.getElementById("addBtn").addEventListener("click", function(){
+  const sorted = blocks.slice().sort(function(a,b){ return a.start-b.start; });
+  const last = sorted[sorted.length-1];
+  const start = last ? last.end : (Math.floor(computeState().mins/30)*30)%1440;
+  const b = {id:newId(), start:start, end:(start+60)%1440, label:"New block", emoji:"", c:(blocks.length%PALETTE)+1};
+  blocks.push(b);
+  persist(); renderRows(); buildAll();
+  const input = document.getElementById("nm-"+b.id);
+  if(input){ input.focus(); input.select(); }
+});
+
+function buildAll(){ buildDial(el.dial); buildDial(el.wpDial, true); tick(); }
+
+/* ===================== toast ===================== */
+let toastTimer = null;
+function showToast(msg, actionLabel, action){
+  const old = document.getElementById("toast");
+  if(old) old.remove();
+  clearTimeout(toastTimer);
+  const t = document.createElement("div");
+  t.id = "toast";
+  t.appendChild(document.createTextNode(msg));
+  if(actionLabel){
+    const b = document.createElement("button");
+    b.type="button"; b.textContent = actionLabel;
+    b.addEventListener("click", function(){ action(); t.remove(); clearTimeout(toastTimer); });
+    t.appendChild(b);
+  }
+  document.body.appendChild(t);
+  toastTimer = setTimeout(function(){ t.remove(); }, 6500);
+}
+
+/* ===================== wallpaper ===================== */
+let wakeLock = null;
+document.getElementById("wpBtn").addEventListener("click", async function(){
+  wallpaperOpen = true;
+  el.wallpaper.hidden = false;
+  buildDial(el.wpDial, true);
+  tick();
+  runBloom();
+  try{ if(document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen(); }catch(e){}
+  try{ if(navigator.wakeLock) wakeLock = await navigator.wakeLock.request("screen"); }catch(e){}
+});
+document.getElementById("wpClose").addEventListener("click", closeWallpaper);
+document.addEventListener("keydown", function(e){ if(e.key==="Escape" && wallpaperOpen) closeWallpaper(); });
+async function closeWallpaper(){
+  wallpaperOpen = false;
+  el.wallpaper.hidden = true;
+  try{ if(document.fullscreenElement) await document.exitFullscreen(); }catch(e){}
+  try{ if(wakeLock){ await wakeLock.release(); wakeLock = null; } }catch(e){}
+}
+
+/* ===================== the printed sheet ===================== */
+const PR = {
+  paper:"#F8F1EA", ground:"#FBF5EF", hub:"#FCF7F2",
+  ink:"#221F1C", soft:"#57514A", muted:"#9A9088", line:"#DFD4C8", tick:"#B9AC9E", stem:"#7C9E4A",
+  sunPetal:"#E3A62A", sfDisc:"#7F5629", sfInk:"#FDF6EA",
+  colors:["#E2604A","#E0A22B","#7C9E4A","#6A4E9C","#DE87A4","#5E9AA8","#E8C948","#8E4E6E"]
+};
+function tracePts(g, pts, close){
+  pts.forEach(function(p,i){ if(i) g.lineTo(p[0],p[1]); else g.moveTo(p[0],p[1]); });
+  if(close) g.closePath();
+}
+function cBlob(g, x, y, r, rot, col, op){
+  const k=r/20;
+  g.save(); g.translate(x,y); g.rotate(rot*Math.PI/180); g.scale(k,k);
+  g.fillStyle=col;
+  g.globalAlpha=op*0.62;
+  g.beginPath();
+  g.moveTo(-2,-19); g.bezierCurveTo(8,-22,19,-15,19,-5); g.bezierCurveTo(19,6,12,16.5,1,19);
+  g.bezierCurveTo(-9.5,21.5,-19,13,-19,2); g.bezierCurveTo(-19,-9,-12,-17,-2,-19); g.closePath(); g.fill();
+  g.globalAlpha=op*0.5;
+  g.beginPath();
+  g.moveTo(-1,-12); g.bezierCurveTo(5,-14,12,-9,12,-2); g.bezierCurveTo(12,5,7,11,-1,12);
+  g.bezierCurveTo(-8,13,-13,8,-13,1); g.bezierCurveTo(-13,-6,-8,-10.5,-1,-12); g.closePath(); g.fill();
+  g.globalAlpha=1; g.restore();
+}
+function cSunflower(g, x, y, k, t, tilt, seeds){
+  g.save();
+  g.translate(x,y); g.scale(k,k);
+
+  g.save();                                  /* petals lean with the sun */
+  g.rotate(tilt*Math.PI/180);
+  cBlob(g, 0, 0, 42+53*t, 12, PR.sunPetal, 0.3*(0.5+0.5*t));
+  for(let i=0;i<20;i++){
+    const a = i*18;
+    const v = 0.86 + 0.28*((jit(a*0.7,3.3)+1)/2);
+    const sy = (0.06 + 0.94*t) * v, sx = 0.45 + 0.55*t;
+    g.save(); g.rotate((a+(1-t)*8)*Math.PI/180); g.translate(0,-48); g.scale(sx,sy);
+    g.beginPath(); g.ellipse(0,-23,7,23,0,0,TAU);
+    g.fillStyle=PR.sunPetal; g.globalAlpha=.52; g.fill();
+    g.globalAlpha=.7; g.strokeStyle=PR.sunPetal; g.lineWidth=1/Math.max(sx,sy); g.stroke();
+    g.restore();
+  }
+  g.fillStyle=PR.stem; g.globalAlpha=(1-0.86*t)*0.6;
+  for(let i=0;i<5;i++){
+    g.save(); g.rotate(i*72*Math.PI/180);
+    g.beginPath(); g.moveTo(0,-47);
+    g.bezierCurveTo(-8,-55,-11,-66,-8,-77);
+    g.bezierCurveTo(-1,-69,3,-57,0,-47);
+    g.closePath(); g.fill(); g.restore();
+  }
+  g.restore();
+
+  g.globalAlpha=0.86+0.07*t; g.fillStyle=PR.sfDisc;   /* the seed head stays upright */
+  g.beginPath(); g.arc(0,0,50,0,TAU); g.fill();
+  g.globalAlpha=.2; g.strokeStyle=PR.sfInk; g.lineWidth=.9;
+  g.beginPath(); g.arc(0,0,44,0,TAU); g.stroke();
+  if(seeds){
+    /* nothing is written on the head in the print, so let it be a seed head:
+       packed on the golden angle, the way a real one grows */
+    g.fillStyle=PR.paper; g.globalAlpha=.17;
+    for(let i=0;i<190;i++){
+      const a = i*2.399963, r = 3.15*Math.sqrt(i);
+      if(r > 41) break;
+      g.beginPath(); g.arc(r*Math.cos(a), r*Math.sin(a), 1.5, 0, TAU); g.fill();
+    }
+  }
+  g.globalAlpha=1; g.restore();
+}
+function cStem(g, x, y, s, rot, col){
+  g.save(); g.translate(x,y); g.rotate(rot*Math.PI/180); g.scale(s,s);
+  g.strokeStyle=PR.stem; g.lineWidth=1.1; g.lineCap="round";
+  g.beginPath(); g.moveTo(0,0); g.bezierCurveTo(-1.6,-10,-1.2,-20,0,-29); g.stroke();
+  g.strokeStyle=col; g.lineWidth=1.6; g.globalAlpha=.85;
+  g.beginPath();
+  for(let i=0;i<9;i++){
+    const a=-Math.PI/2+(i-4)*0.30;
+    g.moveTo(0,-29); g.lineTo(9*Math.cos(a), -29+9*Math.sin(a));
+  }
+  g.stroke();
+  g.globalAlpha=.5; g.fillStyle=PR.stem;
+  g.beginPath(); g.moveTo(-0.8,-11); g.bezierCurveTo(-5.8,-12,-9.3,-15,-10.8,-18.5);
+  g.bezierCurveTo(-6.3,-18.5,-2.3,-16,-0.8,-11); g.fill();
+  g.beginPath(); g.moveTo(0.8,-17); g.bezierCurveTo(5.8,-18,9.3,-21,10.8,-24.5);
+  g.bezierCurveTo(6.3,-24.5,2.3,-22,0.8,-17); g.fill();
+  g.globalAlpha=1; g.restore();
+}
+async function makeWallpaper(){
+  const W=1290, H=2796;
+  const cv=document.createElement("canvas"); cv.width=W; cv.height=H;
+  const g=cv.getContext("2d");
+  const st=computeState();
+
+  g.fillStyle=PR.paper; g.fillRect(0,0,W,H);
+
+  /* a loose garden across the sheet, kept clear of the type */
+  const garden=[
+    [150,300,64,20,0,.5],[260,420,30,-30,1,.5],[1130,340,54,-18,6,.5],[1040,250,26,25,4,.45],
+    [120,1560,58,35,3,.32],[1170,1600,52,-25,5,.32],[210,2640,44,12,4,.42],[1090,2700,48,-20,2,.42],
+    [640,2730,28,8,1,.34]
+  ];
+  garden.forEach(function(b){ cBlob(g,b[0],b[1],b[2],b[3],PR.colors[b[4]],b[5]); });
+  [[236,352,2.6,-10,0],[1058,392,2.4,12,1],[168,1660,2.2,8,3],[1128,1700,2.2,-12,5],
+   [268,2724,2,-8,4],[1032,2782,2,10,2]].forEach(function(p){ cStem(g,p[0],p[1],p[2],p[3],PR.colors[p[4]]); });
+
+  g.textAlign="center"; g.textBaseline="alphabetic";
+  g.fillStyle=PR.soft;
+  try{ g.letterSpacing="17px"; }catch(e){}
+  g.font='400 34px "Cormorant Garamond", Georgia, serif';
+  g.fillText("my schedule", W/2+8, 1100);
+  try{ g.letterSpacing="0px"; }catch(e){}
+  g.fillStyle=PR.muted;
+  g.font='italic 400 27px "EB Garamond", Georgia, serif';
+  g.fillText("stretch myself to see how excellent I can be", W/2, 1152);
+
+  const G={cx:W/2, cy:1690, k:460/310};
+  const path=function(rings, close){ g.beginPath(); rings.forEach(function(p){ tracePts(g,p,close); }); };
+
+  path([arcPts(G,R_EDGE,0,1440,3,1.6)],true);
+  g.fillStyle=PR.ground; g.fill();
+  g.strokeStyle=PR.line; g.lineWidth=1.4; g.stroke();
+
+  const sorted = blocks.slice().sort(function(a,b){ return a.start-b.start; });
+  sorted.forEach(function(b){
+    const col=PR.colors[(b.c-1)%8], dur=durationOf(b);
+    path(bandRings(G,b.start,dur,R_IN,R_OUT,1),true);
+    g.fillStyle=col; g.globalAlpha=.2; g.fill();
+    path(bandRings(G,b.start,dur,R_IN+4,R_OUT-3,2,2.4),true);
+    g.globalAlpha=.17; g.fill();
+    path(bandRings(G,b.start,dur,R_IN,R_OUT,1),true);
+    g.globalAlpha=.62; g.strokeStyle=col; g.lineWidth=1.2; g.stroke();
+    g.globalAlpha=1;
+  });
+  if(st.cur){
+    const col=PR.colors[(st.cur.c-1)%8];
+    path(bandRings(G,st.cur.start,Math.max(0.4,st.elapsed),R_IN,R_OUT,1),true);
+    g.fillStyle=col; g.globalAlpha=.3; g.fill(); g.globalAlpha=1;
+    path(bandRings(G,st.cur.start,durationOf(st.cur),R_IN-4,R_OUT+4,14,1.4),true);
+    g.strokeStyle=PR.ink; g.globalAlpha=.4; g.lineWidth=1.6; g.stroke(); g.globalAlpha=1;
+  }
+
+  try{ g.letterSpacing=".6px"; }catch(e){}
+  sorted.forEach(function(b){
+    const dur=durationOf(b);
+    if(dur<30 || !b.label) return;   /* same threshold the dial uses */
+    const parts=seg(b.start,dur);
+    let best=parts[0];
+    parts.forEach(function(p){ if(p[1]-p[0]>best[1]-best[0]) best=p; });
+    const mid=(best[0]+best[1])/2;
+    const ang=(mid/1440)*TAU - Math.PI/2, flip=(mid/1440)*360>180;
+    const fs=labelSize(dur);
+    let txt=b.label.toLowerCase();
+    const maxChars=labelChars(fs);
+    if(txt.length>maxChars) txt=txt.slice(0,Math.max(1,maxChars-1)).trimEnd()+"…";
+    g.save();
+    g.translate(G.cx,G.cy); g.rotate(ang+(flip?Math.PI:0));
+    g.font='600 '+(fs*G.k).toFixed(1)+'px "Cormorant Garamond", Georgia, serif';
+    g.textAlign="center"; g.textBaseline="middle";
+    g.fillStyle=PR.ink; g.globalAlpha=.92;
+    /* a flipped label reads the right way up because the frame is turned 180°,
+       so its radius has to be negated or it lands on the far side of the dial */
+    g.fillText(txt, (flip ? -R_MID : R_MID)*G.k, 0);
+    g.restore();
+  });
+  try{ g.letterSpacing="0px"; }catch(e){}
+  g.globalAlpha=1;
+
+  g.strokeStyle=PR.tick;
+  for(let i=0;i<48;i++){
+    const major=i%2===0;
+    path([radialPts(G, i*30, major?R_TK_IN:R_TK_IN+4, R_TK_OUT, major?5:6, 1)],false);
+    g.lineWidth=major?1.5:1; g.globalAlpha=major?.8:.45; g.stroke();
+  }
+  g.globalAlpha=1;
+  g.textAlign="center"; g.textBaseline="middle"; g.fillStyle=PR.soft;
+  for(let h=1;h<=24;h++){
+    const p=warp(G,R_NUM,(h%24)*60,7,1.2), major=h%6===0;
+    g.font=(major?'600 27px':'500 22px')+' "Cormorant Garamond", Georgia, serif';
+    g.globalAlpha=major?1:.78;
+    g.fillText(String(h), p[0], p[1]);
+  }
+  g.globalAlpha=1;
+
+  path([arcPts(G,R_RING+7,0.4,Math.max(1,st.mins),13,1.1)],false);
+  g.strokeStyle=PR.ink; g.lineWidth=1.5; g.globalAlpha=.45; g.stroke(); g.globalAlpha=1;
+
+  path([arcPts(G,R_HUB,0,1440,11,1.1)],true);
+  g.fillStyle=PR.hub; g.fill();
+  g.strokeStyle=PR.line; g.lineWidth=1.4; g.stroke();
+  g.textAlign="center"; g.textBaseline="middle";
+  cSunflower(g, G.cx, G.cy, G.k, 1, 0, true);
+
+  g.fillStyle=PR.ink;
+  g.font='300 62px "Cormorant Garamond", Georgia, serif';
+  g.fillText(st.name, W/2, 2300);
+  g.fillStyle=PR.soft;
+  g.font='italic 400 27px "EB Garamond", Georgia, serif';
+  g.fillText(st.cur ? "until "+fmt12(st.cur.end)+" — "+fmtDur(st.remaining)+" left"
+                    : (st.next ? "free until "+fmt12(st.next.start) : "nothing scheduled"), W/2, 2356);
+
+  g.strokeStyle=PR.line; g.lineWidth=1; g.globalAlpha=.9;
+  g.beginPath(); g.moveTo(W/2-120,2418); g.lineTo(W/2+120,2418); g.stroke();
+  g.globalAlpha=1;
+
+  g.fillStyle=PR.muted;
+  g.font='400 25px "EB Garamond", Georgia, serif';
+  if(st.next) g.fillText("next — "+(st.next.label||"")+" at "+fmt12(st.next.start), W/2, 2472);
+  g.font='italic 400 22px "EB Garamond", Georgia, serif';
+  g.fillText(fDate.format(new Date())+"  ·  "+cityOf(TZ)+" "+zoneLabel().toLowerCase(), W/2, 2538);
+
+  return cv;
+}
+
+/* ===================== capabilities ===================== */
+if(window.claude && typeof window.claude.use === "function"){
+  window.claude.use("db").then(function(store){
+    if(!store) return;
+    db = store;
+    store.doc("schedule/main").onSnapshot(function(snap){
+      if(!snap.exists) return;
+      if(Date.now() - lastLocalEdit < 2500) return;
+      const incoming = sanitize((snap.data()||{}).blocks);
+      if(!incoming || !incoming.length) return;
+      if(JSON.stringify(incoming) === JSON.stringify(blocks)) return;
+      blocks = incoming;
+      try{ localStorage.setItem(LS_KEY, JSON.stringify(blocks)); }catch(e){}
+      renderRows(); buildAll();
+    }, function(){});
+  }).catch(function(){});
+
+  window.claude.use("user").then(function(u){
+    if(!u) return null;
+    return Promise.resolve(u.can("data.write")).then(function(ok){
+      if(ok === false){
+        setReadOnly("These blocks belong to whoever shared this page. The clock is yours to set — the blocks stay as they are.");
+      }
+    });
+  }).catch(function(){});
+
+  window.claude.use("downloads").then(function(dl){
+    if(!dl) return;
+    const btn = document.getElementById("saveBtn");
+    btn.hidden = false;
+    btn.addEventListener("click", async function(){
+      btn.disabled = true;
+      const prev = btn.textContent;
+      btn.textContent = "drawing…";
+      try{
+        try{ await document.fonts.ready; }catch(e){}
+        const cv = await makeWallpaper();
+        const blob = await new Promise(function(res){ cv.toBlob(res,"image/png"); });
+        if(!blob) throw {code:"bad_request"};
+        await dl.save({filename:"my-schedule-wallpaper.png", data: blob});
+        showToast("saved");
+      }catch(err){
+        const code = err && err.code;
+        if(code !== "declined"){
+          showToast(code==="too_large" ? "that image was too large to save" : "couldn't save the image");
+        }
+      }finally{
+        btn.disabled = false;
+        btn.textContent = prev;
+      }
+    });
+  }).catch(function(){});
+}
+
+/* ===================== the two moments you can watch ===================== */
+/* within a block the flower opens far too slowly to see, so the change is
+   animated where it matters: arriving on the page, and a block handing over */
+function clockNow(){ return (window.performance && performance.now) ? performance.now() : Date.now(); }
+let sunAnim = null, lastBlockId = null;
+function animateSun(to, ms){
+  let reduce = false;
+  try{ reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){}
+  if(sunAnim){ clearInterval(sunAnim); sunAnim = null; }
+  if(reduce){ sunT = to; tick(); return; }
+  const from = sunT, start = clockNow();
+  sunAnim = setInterval(function(){
+    const p = Math.min(1, (clockNow()-start)/ms);
+    sunT = from + (to-from)*smooth(p);
+    const mins = computeState().mins, tilt = bloomTilt(mins);
+    paintSunflower(el.dial, sunT, tilt);
+    if(wallpaperOpen) paintSunflower(el.wpDial, 1, 0);   /* the still one never animates */
+    if(p >= 1){ clearInterval(sunAnim); sunAnim = null; }
+  }, 40);
+}
+function runBloom(){ animateSun(targetBloom(computeState()), 1700); }
+
+/* ===================== watch the day ===================== */
+/* the real dial turns a quarter of a degree a minute, which is no fun to look
+   at — so the same clock can be run fast, and everything follows it */
+let preview = null;
+const speedLine = document.getElementById("speedLine");
+const playBtn = document.getElementById("playBtn");
+
+function updatePlayUI(){
+  playBtn.textContent = preview ? "back to now" : "watch the day";
+  speedLine.hidden = !preview;
+  speedLine.querySelectorAll("button").forEach(function(b){
+    b.classList.toggle("on", !!preview && +b.getAttribute("data-s") === preview.speed);
+  });
+}
+function startPreview(speed){
+  if(preview){ preview.speed = speed; updatePlayUI(); return; }
+  /* you asked for this one, so it runs even under reduced motion */
+  preview = {offset:0, speed:speed, last:clockNow(), timer:0};
+  updatePlayUI();
+  preview.timer = setInterval(function(){
+    if(!preview) return;
+    const now = clockNow();
+    const dt = Math.min(0.5, (now - preview.last)/1000);
+    preview.last = now;
+    preview.offset = (preview.offset + preview.speed*dt) % 1440;
+    tick();
+  }, 40);
+}
+function stopPreview(){
+  if(preview && preview.timer) clearInterval(preview.timer);
+  preview = null;
+  updatePlayUI();
+  tick();
+}
+playBtn.addEventListener("click", function(){ preview ? stopPreview() : startPreview(60); });
+speedLine.addEventListener("click", function(e){
+  const b = e.target.closest ? e.target.closest("button[data-s]") : null;
+  if(b) startPreview(+b.getAttribute("data-s"));
+});
+
+/* ===================== the time zone picker ===================== */
+const COMMON_TZ = [
+  "UTC",
+  "America/Winnipeg","America/Toronto","America/Vancouver","America/Edmonton","America/Halifax",
+  "America/New_York","America/Chicago","America/Denver","America/Los_Angeles","America/Phoenix",
+  "America/Mexico_City","America/Bogota","America/Lima","America/Santiago","America/Sao_Paulo",
+  "Europe/London","Europe/Dublin","Europe/Lisbon","Europe/Paris","Europe/Madrid","Europe/Berlin",
+  "Europe/Amsterdam","Europe/Brussels","Europe/Zurich","Europe/Rome","Europe/Stockholm","Europe/Oslo",
+  "Europe/Copenhagen","Europe/Warsaw","Europe/Prague","Europe/Athens","Europe/Bucharest",
+  "Europe/Istanbul","Europe/Kyiv","Europe/Moscow",
+  "Africa/Casablanca","Africa/Lagos","Africa/Cairo","Africa/Nairobi","Africa/Johannesburg",
+  "Asia/Jerusalem","Asia/Dubai","Asia/Tehran","Asia/Karachi","Asia/Kolkata","Asia/Kathmandu",
+  "Asia/Dhaka","Asia/Bangkok","Asia/Ho_Chi_Minh","Asia/Jakarta","Asia/Singapore","Asia/Manila",
+  "Asia/Hong_Kong","Asia/Shanghai","Asia/Taipei","Asia/Seoul","Asia/Tokyo",
+  "Australia/Perth","Australia/Adelaide","Australia/Brisbane","Australia/Melbourne","Australia/Sydney",
+  "Pacific/Auckland","Pacific/Fiji","Pacific/Honolulu"
+];
+/* browsers still hand back the old spellings, so a search for the name people
+   actually type — kolkata, kyiv, ho chi minh — has to find the legacy id too */
+const TZ_ALIAS = {
+  "Asia/Saigon":"Asia/Ho_Chi_Minh", "Asia/Calcutta":"Asia/Kolkata", "Europe/Kiev":"Europe/Kyiv",
+  "Europe/Uzhgorod":"Europe/Kyiv", "Europe/Zaporozhye":"Europe/Kyiv", "Asia/Katmandu":"Asia/Kathmandu",
+  "Asia/Rangoon":"Asia/Yangon", "Asia/Ulan_Bator":"Asia/Ulaanbaatar", "Asia/Istanbul":"Europe/Istanbul",
+  "Asia/Thimbu":"Asia/Thimphu", "Asia/Dacca":"Asia/Dhaka", "America/Godthab":"America/Nuuk",
+  "America/Buenos_Aires":"America/Argentina/Buenos_Aires", "Africa/Asmera":"Africa/Asmara",
+  "Atlantic/Faeroe":"Atlantic/Faroe", "Pacific/Ponape":"Pacific/Pohnpei", "Pacific/Truk":"Pacific/Chuuk",
+  "Australia/Canberra":"Australia/Sydney", "US/Pacific":"America/Los_Angeles", "US/Eastern":"America/New_York"
+};
+function rawZones(){
+  try{
+    if(typeof Intl.supportedValuesOf === "function"){
+      const v = Intl.supportedValuesOf("timeZone");
+      if(v && v.length) return v;
+    }
+  }catch(e){}
+  return COMMON_TZ;
+}
+let ZONE_INDEX = null;
+function zoneIndex(){
+  if(ZONE_INDEX) return ZONE_INDEX;
+  const seen = {}, out = [];
+  function add(raw){
+    let display = TZ_ALIAS[raw] || raw;
+    if(display !== raw && !validTz(display)) display = raw;   /* older engine: keep what it knows */
+    const prev = seen[display];
+    if(prev){
+      if(raw !== display && prev.hay.indexOf(raw.toLowerCase()) < 0){
+        prev.hay += " " + raw.toLowerCase().replace(/[_\/]/g," ");
+      }
+      return;
+    }
+    const entry = {
+      tz: display,
+      hay: (display + " " + (raw !== display ? raw : "")).toLowerCase().replace(/[_\/]/g," ")
+    };
+    seen[display] = entry;
+    out.push(entry);
+  }
+  COMMON_TZ.forEach(function(z){ if(validTz(z)) add(z); });
+  rawZones().forEach(add);
+  ZONE_INDEX = out;
+  return out;
+}
+function allZones(){ return zoneIndex().map(function(e){ return e.tz; }); }
+function timeIn(tz){
+  try{
+    return new Intl.DateTimeFormat("en-CA",{timeZone:tz,hour12:false,hour:"2-digit",minute:"2-digit"}).format(new Date());
+  }catch(e){ return ""; }
+}
+
+const tzPanel = document.getElementById("tzPanel");
+const tzBackdrop = document.getElementById("tzBackdrop");
+const tzList = document.getElementById("tzList");
+const tzFilter = document.getElementById("tzFilter");
+
+function setTz(tz){
+  if(!validTz(tz)) return;
+  TZ = tz;
+  buildFormatters();
+  try{ localStorage.setItem(TZ_KEY, tz); }catch(e){}
+  tick();
+}
+function renderTzList(){
+  const q = tzFilter.value.trim().toLowerCase();
+  let zones, tagged = {};
+  if(q){
+    const hits = zoneIndex().filter(function(e){ return e.hay.indexOf(q) >= 0; });
+    /* a city that starts with what you typed should come before one that merely contains it */
+    hits.sort(function(a,b){
+      const ac = cityOf(a.tz), bc = cityOf(b.tz);
+      const ar = ac.indexOf(q)===0 ? 0 : (ac.indexOf(q)>=0 ? 1 : 2);
+      const br = bc.indexOf(q)===0 ? 0 : (bc.indexOf(q)>=0 ? 1 : 2);
+      return ar-br || ac.localeCompare(bc);
+    });
+    zones = hits.slice(0, 60).map(function(e){ return e.tz; });
+  }else{
+    const dev = deviceTz(), head = [];
+    if(validTz(dev)){ head.push(dev); tagged[dev] = "your device"; }
+    if(HOME_TZ !== dev){ head.push(HOME_TZ); tagged[HOME_TZ] = tagged[HOME_TZ] || "the original"; }
+    if(TZ !== dev && TZ !== HOME_TZ) head.push(TZ);
+    zones = head.concat(COMMON_TZ.filter(function(z){ return head.indexOf(z) < 0; }));
+  }
+  if(!zones.length){
+    tzList.innerHTML = '<p class="tzempty">No city by that name. Try a bigger one nearby.</p>';
+    return;
+  }
+  tzList.innerHTML = zones.map(function(z){
+    const note = tagged[z] || regionOf(z);
+    return '<button class="tzrow'+(z===TZ?" is-on":"")+'" type="button" data-tz="'+esc(z)+'">'+
+             '<span class="tzname">'+esc(cityOf(z))+(note?'<em>'+esc(note)+'</em>':'')+'</span>'+
+             '<span class="tztime">'+esc(timeIn(z))+'</span>'+
+           '</button>';
+  }).join("");
+}
+function openTz(){
+  tzFilter.value = "";
+  renderTzList();
+  tzBackdrop.hidden = false;
+  tzPanel.hidden = false;
+  const on = tzList.querySelector(".tzrow.is-on");
+  if(on) on.scrollIntoView({block:"center"});
+  setTimeout(function(){ tzFilter.focus(); }, 30);
+}
+function closeTz(){
+  tzPanel.hidden = true;
+  tzBackdrop.hidden = true;
+}
+document.getElementById("tzBtn").addEventListener("click", openTz);
+document.getElementById("tzClose").addEventListener("click", closeTz);
+tzBackdrop.addEventListener("click", closeTz);
+tzFilter.addEventListener("input", renderTzList);
+tzList.addEventListener("click", function(e){
+  const row = e.target.closest ? e.target.closest(".tzrow") : null;
+  if(!row) return;
+  setTz(row.getAttribute("data-tz"));
+  closeTz();
+});
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape" && !tzPanel.hidden) closeTz();
+});
+
+/* ===================== blooms in the margins ===================== */
+function decorate(){
+  const left = document.querySelector(".bloom.l"), right = document.querySelector(".bloom.r");
+  if(left) left.innerHTML = wash(30, 34, 20, 15, "var(--c1)", .5) + plant("tulip", 58, 78, 1, -10, "var(--c1)");
+  if(right) right.innerHTML = wash(52, 26, 16, -20, "var(--c2)", .5) + plant("clover", 26, 74, .95, 12, "var(--c5)");
+}
+
+/* ===================== setup drawer (phone) ===================== */
+let setupOpen = false;
+const phoneQ = window.matchMedia("(max-width:700px)");
+function applySetupVisibility(){
+  el.setup.hidden = phoneQ.matches && !setupOpen;
+  el.setupToggle.textContent = setupOpen ? "hide setup" : "edit blocks";
+}
+el.setupToggle.addEventListener("click", function(){
+  setupOpen = !setupOpen;
+  applySetupVisibility();
+  if(setupOpen) el.setup.scrollIntoView({behavior:"smooth", block:"start"});
+});
+if(phoneQ.addEventListener) phoneQ.addEventListener("change", applySetupVisibility);
+applySetupVisibility();
+
+/* ===================== go ===================== */
+decorate();
+renderRows();
+buildAll();
+runBloom();
+setInterval(tick, 1000);
+document.addEventListener("visibilitychange", function(){ if(!document.hidden) tick(); });
+})();
+</script>
+</body>
+</html>
